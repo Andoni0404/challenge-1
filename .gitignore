@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*:Zone.Identifier
+*.Zone.Identifier
+# Descomenta si los modelos/logs pesan mucho (GitHub rechaza archivos >100 MB)
+# atari_pong/models/
+# atari_pong/logs/

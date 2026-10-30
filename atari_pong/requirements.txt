@@ -1,0 +1,3 @@
+stable-baselines3[extra]
+gymnasium[atari,accept-rom-license]
+pygame
