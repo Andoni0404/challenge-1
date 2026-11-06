@@ -1,0 +1,73 @@
+Pruebas: 31 | completas: 13 | podadas: 18
+  ok: optuna_plots/1_historia.html
+  ok: optuna_plots/2_curvas_y_poda.html
+  ok: optuna_plots/3_coordenadas_paralelas.html
+  ok: optuna_plots/4_slice.html
+  ok: optuna_plots/5_importancia.html
+  ok: optuna_plots/6_timeline.html
+
+Mejor prueba: #4 | score -11.99
+Parámetros: {'learning_rate': 0.00024440735589899114, 'ent_coef': 0.0006956364643508007, 'n_epochs': 10, 'clip_range': 0.2}
+
+Resumen por prueba:
+  #00 COMPLETE  hasta  400000 pasos | score -16.29 | {'learning_rate': 0.0003, 'ent_coef': 0.005, 'n_epochs': 8, 'clip_range': 0.2}
+  #01 COMPLETE  hasta  400000 pasos | score -17.32 | {'learning_rate': 0.00025, 'ent_coef': 0.0001, 'n_epochs': 4, 'clip_range': 0.1}
+  #02 COMPLETE  hasta  400000 pasos | score -18.63 | {'learning_rate': 0.00025, 'ent_coef': 0.01, 'n_epochs': 4, 'clip_range': 0.1}
+  #03 COMPLETE  hasta  400000 pasos | score -18.14 | {'learning_rate': 0.0001535528683888687, 'ent_coef': 0.015403596595019236, 'n_epochs': 8, 'clip_range': 0.1}
+  #04 COMPLETE  hasta  400000 pasos | score -11.99 | {'learning_rate': 0.00024440735589899114, 'ent_coef': 0.0006956364643508007, 'n_epochs': 10, 'clip_range': 0.2}
+  #05 COMPLETE  hasta  400000 pasos | score -15.88 | {'learning_rate': 0.0001960873392363222, 'ent_coef': 0.0002836255516587636, 'n_epochs': 10, 'clip_range': 0.2}
+  #06 COMPLETE  hasta  400000 pasos | score -14.76 | {'learning_rate': 0.001, 'ent_coef': 0.00043306559929783917, 'n_epochs': 10, 'clip_range': 0.2}
+  #07 PRUNED    hasta  200000 pasos | score -20.23 | {'learning_rate': 0.00011919830200078069, 'ent_coef': 0.0010217982084661723, 'n_epochs': 10, 'clip_range': 0.2}
+  #08 COMPLETE  hasta  400000 pasos | score -14.00 | {'learning_rate': 0.00011916761123929974, 'ent_coef': 0.0010218521493904514, 'n_epochs': 10, 'clip_range': 0.2}
+  #09 COMPLETE  hasta  400000 pasos | score -15.60 | {'learning_rate': 0.0003447299480259997, 'ent_coef': 0.0009447343136921133, 'n_epochs': 10, 'clip_range': 0.2}
+  #10 PRUNED    hasta  200000 pasos | score -20.69 | {'learning_rate': 0.00020308608045961223, 'ent_coef': 0.0008770705238186673, 'n_epochs': 10, 'clip_range': 0.2}
+  #11 COMPLETE  hasta  400000 pasos | score -14.49 | {'learning_rate': 0.00020308590829222454, 'ent_coef': 0.0008770778444021594, 'n_epochs': 10, 'clip_range': 0.2}
+  #12 PRUNED    hasta  200000 pasos | score -20.22 | {'learning_rate': 7.377223888389338e-05, 'ent_coef': 0.00124037486867624, 'n_epochs': 10, 'clip_range': 0.2}
+  #13 COMPLETE  hasta  400000 pasos | score -19.27 | {'learning_rate': 7.37441712643181e-05, 'ent_coef': 0.0012438404883082657, 'n_epochs': 10, 'clip_range': 0.2}
+  #14 COMPLETE  hasta  400000 pasos | score -12.52 | {'learning_rate': 0.0002656026939826894, 'ent_coef': 0.00038453881489757067, 'n_epochs': 10, 'clip_range': 0.2}
+  #15 COMPLETE  hasta  400000 pasos | score -14.80 | {'learning_rate': 0.00024809825572095936, 'ent_coef': 0.005330342248355071, 'n_epochs': 10, 'clip_range': 0.2}
+  #16 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #17 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #18 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #19 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #20 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #21 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #22 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #23 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #24 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #25 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #26 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #27 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #28 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #29 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #30 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #01 COMPLETE  hasta  400000 pasos | score -17.32 | {'learning_rate': 0.00025, 'ent_coef': 0.0001, 'n_epochs': 4, 'clip_range': 0.1}
+  #02 COMPLETE  hasta  400000 pasos | score -18.63 | {'learning_rate': 0.00025, 'ent_coef': 0.01, 'n_epochs': 4, 'clip_range': 0.1}
+  #03 COMPLETE  hasta  400000 pasos | score -18.14 | {'learning_rate': 0.0001535528683888687, 'ent_coef': 0.015403596595019236, 'n_epochs': 8, 'clip_range': 0.1}
+  #04 COMPLETE  hasta  400000 pasos | score -11.99 | {'learning_rate': 0.00024440735589899114, 'ent_coef': 0.0006956364643508007, 'n_epochs': 10, 'clip_range': 0.2}
+  #05 COMPLETE  hasta  400000 pasos | score -15.88 | {'learning_rate': 0.0001960873392363222, 'ent_coef': 0.0002836255516587636, 'n_epochs': 10, 'clip_range': 0.2}
+  #06 COMPLETE  hasta  400000 pasos | score -14.76 | {'learning_rate': 0.001, 'ent_coef': 0.00043306559929783917, 'n_epochs': 10, 'clip_range': 0.2}
+  #07 PRUNED    hasta  200000 pasos | score -20.23 | {'learning_rate': 0.00011919830200078069, 'ent_coef': 0.0010217982084661723, 'n_epochs': 10, 'clip_range': 0.2}
+  #08 COMPLETE  hasta  400000 pasos | score -14.00 | {'learning_rate': 0.00011916761123929974, 'ent_coef': 0.0010218521493904514, 'n_epochs': 10, 'clip_range': 0.2}
+  #09 COMPLETE  hasta  400000 pasos | score -15.60 | {'learning_rate': 0.0003447299480259997, 'ent_coef': 0.0009447343136921133, 'n_epochs': 10, 'clip_range': 0.2}
+  #10 PRUNED    hasta  200000 pasos | score -20.69 | {'learning_rate': 0.00020308608045961223, 'ent_coef': 0.0008770705238186673, 'n_epochs': 10, 'clip_range': 0.2}
+  #11 COMPLETE  hasta  400000 pasos | score -14.49 | {'learning_rate': 0.00020308590829222454, 'ent_coef': 0.0008770778444021594, 'n_epochs': 10, 'clip_range': 0.2}
+  #12 PRUNED    hasta  200000 pasos | score -20.22 | {'learning_rate': 7.377223888389338e-05, 'ent_coef': 0.00124037486867624, 'n_epochs': 10, 'clip_range': 0.2}
+  #13 COMPLETE  hasta  400000 pasos | score -19.27 | {'learning_rate': 7.37441712643181e-05, 'ent_coef': 0.0012438404883082657, 'n_epochs': 10, 'clip_range': 0.2}
+  #14 COMPLETE  hasta  400000 pasos | score -12.52 | {'learning_rate': 0.0002656026939826894, 'ent_coef': 0.00038453881489757067, 'n_epochs': 10, 'clip_range': 0.2}
+  #15 COMPLETE  hasta  400000 pasos | score -14.80 | {'learning_rate': 0.00024809825572095936, 'ent_coef': 0.005330342248355071, 'n_epochs': 10, 'clip_range': 0.2}
+  #16 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #17 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #18 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #19 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #20 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #21 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #22 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #23 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #24 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #25 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #26 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #27 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #28 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #29 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}
+  #30 PRUNED    hasta  200000 pasos | score -20.37 | {'learning_rate': 0.001, 'ent_coef': 0.019999999999999993, 'n_epochs': 3, 'clip_range': 0.3}

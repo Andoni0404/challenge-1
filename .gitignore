@@ -5,3 +5,20 @@ __pycache__/
 # Descomenta si los modelos/logs pesan mucho (GitHub rechaza archivos >100 MB)
 # atari_pong/models/
 # atari_pong/logs/
+cd ~/ReinforcementLearning/challenge-1
+cat >> .gitignore <<'EOF'
+__pycache__/
+nohup.out
+*.zip
+!atari_pong/models/opt/best_model/best_model.zip
+atari_pong/models/*/final_model.zip
+atari_pong/models/optuna/
+atari_pong/models/opt_final_3M_backup/
+EOF
+__pycache__/
+nohup.out
+*.zip
+!atari_pong/models/opt/best_model/best_model.zip
+atari_pong/models/*/final_model.zip
+atari_pong/models/optuna/
+atari_pong/models/opt_final_3M_backup/

@@ -1,0 +1,155 @@
+nohup: ignoring input
+/home/andonigarrido/ReinforcementLearning/challenge-1/atari_pong/optuna_pong.py:148: ExperimentalWarning: PatientPruner is experimental (supported from v2.8.0). The interface can change in the future.
+  pruner = PatientPruner(
+[I 2026-11-03 08:27:48,513] A new study created in RDB with name: ppo_pong
+
+=== Trial 0: {'learning_rate': 0.0003, 'ent_coef': 0.005, 'n_epochs': 8, 'clip_range': 0.2}
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+/home/andonigarrido/ReinforcementLearning/challenge-1/.venv/lib/python3.12/site-packages/torch/cuda/__init__.py:228: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 12080). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /__w/pytorch/pytorch/c10/cuda/CUDAFunctions.cpp:119.)
+  return torch._C._cuda_getDeviceCount() > 0
+    terminado: score=-16.29
+[I 2026-11-03 09:08:12,477] Trial 0 finished with value: -16.287182 and parameters: {'learning_rate': 0.0003, 'ent_coef': 0.005, 'n_epochs': 8, 'clip_range': 0.2}. Best is trial 0 with value: -16.287182.
+
+=== Trial 1: {'learning_rate': 0.00025, 'ent_coef': 0.0001, 'n_epochs': 4, 'clip_range': 0.1}
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+    terminado: score=-17.32
+[I 2026-11-03 09:33:59,109] Trial 1 finished with value: -17.318303 and parameters: {'learning_rate': 0.00025, 'ent_coef': 0.0001, 'n_epochs': 4, 'clip_range': 0.1}. Best is trial 0 with value: -16.287182.
+
+=== Trial 2: {'learning_rate': 0.00025, 'ent_coef': 0.01, 'n_epochs': 4, 'clip_range': 0.1}
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+
+
+
+
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+    terminado: score=-18.63
+[I 2026-11-03 14:43:07,293] Trial 2 finished with value: -18.634062 and parameters: {'learning_rate': 0.00025, 'ent_coef': 0.01, 'n_epochs': 4, 'clip_range': 0.1}. Best is trial 0 with value: -16.287182.
+
+=== Trial 3: {'learning_rate': 0.0001535528683888687, 'ent_coef': 0.015403596595019236, 'n_epochs': 8, 'clip_range': 0.1}
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+    terminado: score=-18.14
+[I 2026-11-03 15:30:31,674] Trial 3 finished with value: -18.141383 and parameters: {'learning_rate': 0.0001535528683888687, 'ent_coef': 0.015403596595019236, 'n_epochs': 8, 'clip_range': 0.1}. Best is trial 0 with value: -16.287182.
+[W 2026-11-03 15:30:34,948] The 'greenlet' package is unavailable, falling back to sequential L-BFGS-B optimization. This may lead to slower suggestions.
+
+=== Trial 4: {'learning_rate': 0.00024440735589899114, 'ent_coef': 0.0006956364643508007, 'n_epochs': 10, 'clip_range': 0.2}
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+
+
+
+
+
+
+
+    terminado: score=-11.99
+[I 2026-11-03 16:20:04,975] Trial 4 finished with value: -11.988318 and parameters: {'learning_rate': 0.00024440735589899114, 'ent_coef': 0.0006956364643508007, 'n_epochs': 10, 'clip_range': 0.2}. Best is trial 4 with value: -11.988318.
+
+=== Trial 5: {'learning_rate': 0.0001960873392363222, 'ent_coef': 0.0002836255516587636, 'n_epochs': 10, 'clip_range': 0.2}
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.12.1+8a8fafb)
+[Powered by Stella]
+    terminado: score=-15.88
+[I 2026-11-04 10:05:50,931] Trial 5 finished with value: -15.877065000000002 and parameters: {'learning_rate': 0.0001960873392363222, 'ent_coef': 0.0002836255516587636, 'n_epochs': 10, 'clip_range': 0.2}. Best is trial 4 with value: -11.988318.
+
+============================================================
+Pruebas completas: 6 | podadas: 0
+Mejor score: -11.99
+Mejores parámetros: {'learning_rate': 0.00024440735589899114, 'ent_coef': 0.0006956364643508007, 'n_epochs': 10, 'clip_range': 0.2}
+Modelo: models/optuna/trial_04.zip
+============================================================
+
+Generando gráficas...
+Pruebas: 7 | completas: 6 | podadas: 0
+  ok: optuna_plots/1_historia.html
+  ok: optuna_plots/2_curvas_y_poda.html
+  ok: optuna_plots/3_coordenadas_paralelas.html
+  ok: optuna_plots/4_slice.html
+  ok: optuna_plots/5_importancia.html
+  ok: optuna_plots/6_timeline.html
+
+Mejor prueba: #4 | score -11.99
+Parámetros: {'learning_rate': 0.00024440735589899114, 'ent_coef': 0.0006956364643508007, 'n_epochs': 10, 'clip_range': 0.2}
+
+Resumen por prueba:
+  #00 COMPLETE  hasta  400000 pasos | score -16.29 | {'learning_rate': 0.0003, 'ent_coef': 0.005, 'n_epochs': 8, 'clip_range': 0.2}
+  #01 COMPLETE  hasta  400000 pasos | score -17.32 | {'learning_rate': 0.00025, 'ent_coef': 0.0001, 'n_epochs': 4, 'clip_range': 0.1}
+  #02 COMPLETE  hasta  400000 pasos | score -18.63 | {'learning_rate': 0.00025, 'ent_coef': 0.01, 'n_epochs': 4, 'clip_range': 0.1}
+  #03 COMPLETE  hasta  400000 pasos | score -18.14 | {'learning_rate': 0.0001535528683888687, 'ent_coef': 0.015403596595019236, 'n_epochs': 8, 'clip_range': 0.1}
+  #04 COMPLETE  hasta  400000 pasos | score -11.99 | {'learning_rate': 0.00024440735589899114, 'ent_coef': 0.0006956364643508007, 'n_epochs': 10, 'clip_range': 0.2}
+  #05 COMPLETE  hasta  400000 pasos | score -15.88 | {'learning_rate': 0.0001960873392363222, 'ent_coef': 0.0002836255516587636, 'n_epochs': 10, 'clip_range': 0.2}
+  #06 RUNNING   hasta  150000 pasos | score      - | {'learning_rate': 0.001, 'ent_coef': 0.00043306559929783917, 'n_epochs': 10, 'clip_range': 0.2}
