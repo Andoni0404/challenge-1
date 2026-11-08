@@ -4,11 +4,13 @@ Este challenge usa el entorno Atari **Pong** de la [Arcade Learning Environment 
 
 ## Resultado
 
-Modelo final: **`models/shape2_ft/best_model/best_model.zip`**, con **+17,85 ± 2,26** en modo determinista y +18,45 ± 1,53 en estocástico (20 partidas; el máximo es +21).
+Modelo final: **`models/shape2_ft/best_model/best_model.zip`** (4,95M pasos), con **+17,63 ± 1,99** en modo estocástico y **+17,90 ± 2,22** en determinista (100 partidas nuevas, semilla 123, sin shaping; el máximo es +21).
+
+Usamos 100 partidas nuevas porque el `best_model` del `EvalCallback` se elige como el mejor de muchas evaluaciones cortas: con 20 partidas su nota sale inflada (~0,8 puntos).
 
 ```bash
 python play.py --mode agent                       # ver jugar al modelo final
-python evaluate.py models/shape2_ft/best_model/best_model --episodes 20
+python evaluate.py models/shape2_ft/best_model/best_model --episodes 100
 ```
 
 ## Estructura
@@ -73,6 +75,14 @@ Los comandos están reconstruidos a partir de los logs. Las puntuaciones son las
 | `opt_shape2_s1` | `--exp opt_shape2 --seed 1 --steps 400000` | Shaping v2 desde cero | −9,25 |
 | `shape2_cont` | `--exp opt_shape2 --resume models/opt/best_model/best_model --name shape2_cont --steps 1500000` | `opt` + shaping v2 | +16,55 |
 | **`shape2_ft`** | `--exp opt_shape2 --resume models/shape2_cont/best_model/best_model --name shape2_ft --steps 1500000 --lr_decay 2.444e-4` | Afinado: lr 2,444e-4 → 0 | **+17,85** ⭐ |
+
+**Comparación final con 100 partidas nuevas** (`opt_cont` y `shape2_cont` parten del mismo modelo `opt`, así que `opt_cont` es el control sin shaping; `shape2_ft` continúa `shape2_cont`):
+
+| Run | Determinista | Estocástico |
+|---|---|---|
+| `opt_cont` (sin shaping) | +16,30 | +16,29 |
+| `shape2_cont` (shaping v2) | +17,07 | +16,50 |
+| **`shape2_ft`** (shaping v2 + afinado) | **+17,90 ± 2,22** | **+17,63 ± 1,99** |
 
 En `models/` solo se conservan `PPO/` (el baseline original), `opt/` y `shape2_ft/`.
 
