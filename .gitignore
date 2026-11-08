@@ -22,3 +22,9 @@ nohup.out
 atari_pong/models/*/final_model.zip
 atari_pong/models/optuna/
 atari_pong/models/opt_final_3M_backup/
+__pycache__/
+atari_pong/models/
+atari_pong/logs/
+atari_pong/logs_pres/
+atari_pong/entrega/
+*.zip

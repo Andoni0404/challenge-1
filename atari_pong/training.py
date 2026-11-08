@@ -106,6 +106,20 @@ EXPERIMENTS = {
             ent_coef=6.956e-4,
         ),
     ),
+    # opt_shape2 (Exp. 4b): opt + shaping que anticipa la trayectoria
+    "opt_shape2": dict(
+        n_envs=8,
+        shaping="v2",
+        ppo=dict(
+            n_steps=128,
+            batch_size=256,
+            n_epochs=10,
+            learning_rate=2.444e-4,
+            clip_range=0.2,
+            target_kl=0.02,
+            ent_coef=6.956e-4,
+        ),
+    ),
 }
 
 
@@ -167,6 +181,88 @@ def shaped_atari_wrapper(env, **kwargs):
     registra la recompensa real)."""
     return PongShaping(AtariWrapper(env, **kwargs))
 
+
+# ------------------------------------------------------------
+# Shaping v2: anticipar la trayectoria (Exp. 4b)
+# ------------------------------------------------------------
+# Observación al ver jugar al agente: pierde casi todos los puntos con bolas
+# de ángulo muy inclinado (|dy| alto). La velocidad horizontal es casi
+# constante (4 px/paso), pero con mucho |dy| la pelota rebota en las paredes
+# y no da tiempo a seguirla: hay que moverse hacia donde VA a llegar.
+# El shaping v1 premiaba alinearse con la posición ACTUAL, lo contrario.
+#
+# Geometría medida en la RAM: nuestra pala en x ~ 188, paredes en y ~ 44 y
+# ~ 207; la pala devuelve mejor con pala_y ~ pelota_y - 3. El predictor
+# acierta el punto de llegada con un error mediano de 2-5 px.
+#
+# Potencial, cuando la pelota viene hacia nosotros:
+#   phi = -LAMBDA2 * w * |y_llegada - 3 - pala_y| / 163,  w = min(1 + |dy|/8, 2)
+# (más peso a las bolas inclinadas, que son las que se pierden). Sigue siendo
+# basado en potenciales: F = GAMMA * phi(s') - phi(s).
+
+SHAPING2_LAMBDA = 0.3
+PADDLE_X, Y_MIN, Y_MAX = 188, 44, 207
+
+
+def predict_arrival_y(bx, by, dx, dy):
+    """Altura a la que llegará la pelota a nuestra pala, con rebotes."""
+    t = (PADDLE_X - bx) / dx
+    span = Y_MAX - Y_MIN
+    y = (by + dy * t - Y_MIN) % (2 * span)
+    if y > span:
+        y = 2 * span - y
+    return Y_MIN + y
+
+
+class PongShapingPredictive(gym.Wrapper):
+    def __init__(self, env, lam=SHAPING2_LAMBDA, gamma=SHAPING_GAMMA):
+        super().__init__(env)
+        self.lam, self.gamma = lam, gamma
+        self.prev_phi = 0.0
+        self.last = None
+
+    def _phi(self):
+        ram = self.env.unwrapped.ale.getRAM()
+        bx, by, py = int(ram[49]), int(ram[54]), int(ram[51])
+        if bx == 0 or by == 0:              # no hay pelota en juego
+            self.last = None
+            return 0.0
+        last, self.last = self.last, (bx, by)
+        if last is None:
+            return 0.0
+        dx, dy = bx - last[0], by - last[1]
+        if dx <= 0 or bx >= PADDLE_X:       # se aleja o ya ha llegado
+            return 0.0
+        y_arr = predict_arrival_y(bx, by, dx, dy)
+        w = min(1.0 + abs(dy) / 8.0, 2.0)
+        return -self.lam * w * abs(y_arr - 3 - py) / (Y_MAX - Y_MIN)
+
+    def reset(self, **kwargs):
+        obs, info = self.env.reset(**kwargs)
+        self.last = None
+        self.prev_phi = self._phi()
+        return obs, info
+
+    def step(self, action):
+        obs, reward, terminated, truncated, info = self.env.step(action)
+        phi = self._phi()
+        if reward != 0 or terminated or truncated:
+            phi = 0.0
+        shaped = reward + self.gamma * phi - self.prev_phi
+        self.prev_phi = phi
+        return obs, shaped, terminated, truncated, info
+
+
+def predictive_atari_wrapper(env, **kwargs):
+    return PongShapingPredictive(AtariWrapper(env, **kwargs))
+
+
+SHAPING_WRAPPERS = {
+    True: shaped_atari_wrapper,       # v1 (opt_shape)
+    "v1": shaped_atari_wrapper,
+    "v2": predictive_atari_wrapper,   # v2 (opt_shape2)
+}
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--exp", choices=EXPERIMENTS.keys(), default="exp1")
 parser.add_argument("--steps", type=int, default=1_000_000)
@@ -175,6 +271,9 @@ parser.add_argument("--resume", type=str, default=None,
                     help="Continuar desde un modelo .zip (p. ej. models/opt/best_model/best_model)")
 parser.add_argument("--name", type=str, default=None,
                     help="Nombre del run (por defecto, el del experimento)")
+parser.add_argument("--lr_decay", type=float, default=None,
+                    help="Solo con --resume: learning_rate que baja linealmente "
+                         "desde este valor hasta 0 durante --steps (afinado)")
 args = parser.parse_args()
 
 # Nombre del run: con la semilla por defecto (42) se mantiene el de siempre;
@@ -223,7 +322,7 @@ def create_env(seed, n_envs=1, shaping=False):
             ENV_ID,
             n_envs=n_envs,
             seed=seed,
-            wrapper_class=shaped_atari_wrapper,
+            wrapper_class=SHAPING_WRAPPERS[shaping],
             wrapper_kwargs=WRAPPER_KWARGS,
             env_kwargs={"frameskip": 1},
             vec_env_cls=SubprocVecEnv if n_envs > 1 else None,
@@ -260,6 +359,14 @@ if __name__ == "__main__":
         model = PPO.load(args.resume, env=env, tensorboard_log=LOG_DIR,
                          seed=SEED, verbose=1)
         print(f"Continuando desde {args.resume} ({model.num_timesteps} pasos previos)")
+        if args.lr_decay:
+            # Afinado: lr de lr_decay -> 0 a lo largo de los --steps nuevos.
+            # Al continuar, SB3 calcula el progreso sobre (pasos previos +
+            # nuevos), así que se reescala para que empiece en lr_decay.
+            lr0, n0 = args.lr_decay, model.num_timesteps
+            p0 = MAX_TIMESTEPS / (n0 + MAX_TIMESTEPS)
+            model.lr_schedule = lambda p: lr0 * max(0.0, min(1.0, p / p0))
+            print(f"Afinado: learning_rate {lr0} -> 0 en {MAX_TIMESTEPS} pasos")
     else:
         model = PPO(
             "CnnPolicy",
