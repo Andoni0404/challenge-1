@@ -347,7 +347,7 @@ if __name__ == "__main__":
     eval_callback = EvalCallback(
         eval_env,
         best_model_save_path=f"{MODELS_DIR}/best_model",
-        log_path=f"{LOG_DIR}/eval_{RUN}",
+        log_path=f"{LOG_DIR}/eval/{RUN}",
         eval_freq=max(EVAL_EVERY // EXP["n_envs"], 1),
         n_eval_episodes=N_EVAL_EPISODES,
         deterministic=True,
@@ -356,7 +356,7 @@ if __name__ == "__main__":
 
     if args.resume:
         # Continuar un modelo ya entrenado con sus mismos hiperparámetros
-        model = PPO.load(args.resume, env=env, tensorboard_log=LOG_DIR,
+        model = PPO.load(args.resume, env=env, tensorboard_log=f"{LOG_DIR}/tensorboard",
                          seed=SEED, verbose=1)
         print(f"Continuando desde {args.resume} ({model.num_timesteps} pasos previos)")
         if args.lr_decay:
@@ -372,12 +372,12 @@ if __name__ == "__main__":
             "CnnPolicy",
             env,
             verbose=1,
-            tensorboard_log=LOG_DIR,
+            tensorboard_log=f"{LOG_DIR}/tensorboard",
             seed=SEED,
             **EXP["ppo"],
         )
 
-    print(f"Experimento: {RUN} | seed={SEED} | n_envs={EXP['n_envs']} | "
+    print(f"Experimento: {RUN} (--exp {args.exp}) | seed={SEED} | n_envs={EXP['n_envs']} | "
           f"shaping={EXP.get('shaping', False)} | {EXP['ppo']}")
 
     model.learn(

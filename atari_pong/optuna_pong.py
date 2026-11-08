@@ -11,9 +11,9 @@ Búsqueda de hiperparámetros de PPO para Pong con Optuna.
 
 Uso (con el venv activado, sin otro entrenamiento en marcha):
     pip install optuna scipy plotly
-    nohup python optuna_pong.py --trials 15 --steps 400000 --hours 12 > optuna.log 2>&1 &
+    nohup python optuna_pong.py --trials 15 --steps 400000 --hours 12 > logs/stdout/optuna.log 2>&1 &
 
-El estudio se guarda en optuna_pong.db: si se corta, al relanzar continúa.
+El estudio se guarda en optuna/optuna_pong.db: si se corta, al relanzar continúa.
 """
 import os
 import argparse
@@ -40,8 +40,9 @@ ENV_ID = "ALE/Pong-v5"
 SEED = 42
 REPORT_EVERY = 50_000          # cada cuántos pasos se informa a Optuna
 WARMUP = 150_000               # antes de esto no se poda nada
-LOG_DIR = "logs"
+LOG_DIR = "logs/tensorboard/optuna"
 os.makedirs("models/optuna", exist_ok=True)
+os.makedirs("optuna", exist_ok=True)
 
 
 def create_env(seed, n_envs):
@@ -156,7 +157,7 @@ if __name__ == "__main__":
 
     study = optuna.create_study(
         study_name="ppo_pong",
-        storage="sqlite:///optuna_pong.db",
+        storage="sqlite:///optuna/optuna_pong.db",
         load_if_exists=True,
         direction="maximize",
         sampler=sampler,
@@ -188,7 +189,7 @@ if __name__ == "__main__":
         print(f"Modelo: models/optuna/trial_{study.best_trial.number:02d}.zip")
     print("=" * 60)
 
-    # Gráficas para la presentación (optuna_plots/). Si falla (p. ej. falta
+    # Gráficas para la presentación (optuna/plots/). Si falla (p. ej. falta
     # plotly), el estudio ya está guardado: se pueden generar luego a mano.
     try:
         from optuna_plots import make_plots

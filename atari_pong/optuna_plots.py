@@ -5,7 +5,7 @@ Gráficas del estudio de Optuna para la presentación.
 - También se puede ejecutar a mano (p. ej. a mitad del estudio):
       python optuna_plots.py
 
-Genera HTML interactivos en optuna_plots/ (abrir con: explorer.exe optuna_plots).
+Genera HTML interactivos en optuna/plots/ (abrir con: explorer.exe optuna\\plots).
 Necesita: pip install plotly
 """
 import os
@@ -19,7 +19,7 @@ from optuna.visualization import (
     plot_timeline,
 )
 
-OUT = "optuna_plots"
+OUT = "optuna/plots"
 
 
 def make_plots(study):
@@ -60,5 +60,5 @@ def make_plots(study):
 
 if __name__ == "__main__":
     study = optuna.load_study(study_name="ppo_pong",
-                              storage="sqlite:///optuna_pong.db")
+                              storage="sqlite:///optuna/optuna_pong.db")
     make_plots(study)

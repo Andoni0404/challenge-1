@@ -2,11 +2,79 @@
 
 Este challenge usa el entorno Atari **Pong** de la [Arcade Learning Environment (ALE)](https://ale.farama.org/) a traves de Gymnasium.
 
-## Estructura relevante
+## Resultado
 
-- `training.py`: entrenamiento de un agente PPO con `stable-baselines3` usando `make_atari_env` (frame skipping + frame stacking).
-- `play.py`: jugar como humano (con teclado, via `pygame`) o ver jugar a un agente PPO entrenado.
-- `requirements.txt`: dependencias del challenge.
+Modelo final: **`models/shape2_ft/best_model/best_model.zip`**, con **+17,85 ± 2,26** en modo determinista y +18,45 ± 1,53 en estocástico (20 partidas; el máximo es +21).
+
+```bash
+python play.py --mode agent                       # ver jugar al modelo final
+python evaluate.py models/shape2_ft/best_model/best_model --episodes 20
+```
+
+## Estructura
+
+```
+atari_pong/
+├── training.py        # entrenamiento PPO: experimentos (EXPERIMENTS) y reward shaping
+├── evaluate.py        # evaluar un modelo guardado (determinista y estocástico)
+├── play.py            # jugar como humano o ver al agente (por defecto, el modelo final)
+├── utils.py           # helpers de play.py (código del profesor)
+├── optuna_pong.py     # búsqueda de hiperparámetros con Optuna
+├── optuna_plots.py    # gráficas del estudio de Optuna
+├── requirements.txt
+├── tools/check_ram.py # localiza en la RAM la pelota y la pala (lo usa el shaping)
+├── legacy/            # versión antigua de training.py (sin uso)
+├── models/<run>/      # best_model/ y final_model.zip
+├── logs/
+│   ├── tensorboard/   # curvas de TensorBoard (optuna/ = trials de Optuna)
+│   ├── eval/<run>/    # evaluations.npz del EvalCallback
+│   └── stdout/<run>.log  # salida de consola (evaluación final al final del fichero)
+└── optuna/
+    ├── optuna_pong.db       # estudio de Optuna (SQLite, permite retomarlo)
+    ├── resumen_optuna.txt
+    └── plots/               # HTML interactivos
+```
+
+Todos los scripts se ejecutan desde `atari_pong/` (las rutas son relativas).
+TensorBoard: `tensorboard --logdir logs/tensorboard`.
+
+## `training.py`
+
+```bash
+python training.py --exp <experimento> [--steps N] [--seed S] [--name RUN]
+                   [--resume modelo.zip] [--lr_decay LR]
+```
+
+- `--exp`: una configuración de `EXPERIMENTS`: `baseline`, `exp1`, `exp2`, `exp3`, `exp3b`, `opt`, `opt_shape` (shaping v1) u `opt_shape2` (shaping v2).
+- El **nombre del run** (carpeta en `models/`, `logs/eval/` y `logs/tensorboard/`) es el de `--exp`. Con una semilla distinta de 42 se añade `_s<seed>`, y con `--name` se puede poner uno propio. La primera línea del log indica qué `--exp` se usó.
+- `--resume`: continúa entrenando un modelo con los hiperparámetros del `--exp` dado.
+- `--lr_decay`: solo junto a `--resume`. Hace que el learning rate baje linealmente desde ese valor hasta 0 (afinado final).
+- Para guardar la salida de consola: `nohup python training.py ... > logs/stdout/<run>.log 2>&1 &`.
+
+**Reward shaping** (solo en entrenamiento; la evaluación usa la recompensa real). Está basado en potenciales y lee la RAM:
+- v1 (`opt_shape`): premia que la pala esté alineada con la posición *actual* de la pelota.
+- v2 (`opt_shape2`): predice dónde *llegará* la pelota, teniendo en cuenta los rebotes, y premia estar ahí. Da más peso a las bolas inclinadas.
+
+## Experimentos
+
+Los comandos están reconstruidos a partir de los logs. Las puntuaciones son las de la evaluación final (20 partidas, modo determinista).
+
+| Run | Comando | Qué se probó | Resultado |
+|---|---|---|---|
+| `exp1` | `--exp exp1` | Estabilizar el baseline (8 envs, lr/clip decrecientes) | −13,45 |
+| `exp2` | `--exp exp2` | exp1 + más entropía | −20,15 |
+| `exp3` | `--exp exp3` | Calibrar la velocidad con `target_kl` (interrumpido) | −21 (colapso de entropía) |
+| Optuna | `python optuna_pong.py --trials 15 --steps 400000 --hours 12` | 31 trials, 13 completos y 18 podados; el mejor fue el #4 | −11,99 a 400k |
+| `opt` | `--exp opt --steps 3000000` | Los parámetros del trial #4 entrenados a fondo | +15,75 |
+| `opt_s1` / `opt_s2` | `--exp opt --seed 1\|2 --steps 400000` | Validar con otras semillas | −9,75 / −7,40 |
+| `opt_cont` | `--exp opt --resume models/opt/best_model/best_model --name opt_cont --steps 1500000` | Seguir entrenando `opt` | +16,60 |
+| `opt_shape_s1` | `--exp opt_shape --seed 1 --steps 400000` | Shaping v1 | −16,30 (empeora) |
+| `opt_shape_s2` | `--exp opt_shape --seed 2 --steps 400000` | Shaping v1 (interrumpido) | — |
+| `opt_shape2_s1` | `--exp opt_shape2 --seed 1 --steps 400000` | Shaping v2 desde cero | −9,25 |
+| `shape2_cont` | `--exp opt_shape2 --resume models/opt/best_model/best_model --name shape2_cont --steps 1500000` | `opt` + shaping v2 | +16,55 |
+| **`shape2_ft`** | `--exp opt_shape2 --resume models/shape2_cont/best_model/best_model --name shape2_ft --steps 1500000 --lr_decay 2.444e-4` | Afinado: lr 2,444e-4 → 0 | **+17,85** ⭐ |
+
+En `models/` solo se conservan `PPO/` (el baseline original), `opt/` y `shape2_ft/`.
 
 ## Documentacion del entorno
 
@@ -35,14 +103,15 @@ Jugar como humano:
 python play.py --mode human
 ```
 
-Ver jugar a un agente entrenado:
+Ver jugar a un agente entrenado (por defecto, el modelo final):
 
 ```bash
-python play.py --mode agent --model models/PPO/best_model/best_model
+python play.py --mode agent
+python play.py --mode agent --model models/opt/best_model/best_model
 ```
 
 Entrenar un agente:
 
 ```bash
-python training.py
+python training.py --exp opt
 ```

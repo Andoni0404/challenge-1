@@ -41,7 +41,7 @@ def play_random(env_id):
 def main():
     parser = argparse.ArgumentParser(description="Play Atari Pong as a human or using a PPO agent.")
     parser.add_argument("--mode", choices=["human", "agent","random"], default="random", help="Who controls the paddle.")
-    parser.add_argument("--model", type=str, default="models/PPO/best_model/best_model", help="Path to the PPO model.")
+    parser.add_argument("--model", type=str, default="models/shape2_ft/best_model/best_model", help="Path to the PPO model (por defecto, el modelo final).")
     args = parser.parse_args()
 
     if args.mode == "human":
